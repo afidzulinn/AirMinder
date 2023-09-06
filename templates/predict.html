@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>AirMinder</title>
+
+  <link href="{{ url_for('static', filename='assets/img/img/airminder.png') }}" rel="icon">
+  <link href="{{ url_for('static', filename='assets/img/img/airminder.png') }}" rel="apple-touch-icon">
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/materialize.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/predict.css') }}">
+</head>
+
+<body>
+  <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"></a>
+      <a href=""></a>
+      <ul class="right hide-on-med-and-down">
+      </ul>
+
+      <ul id="nav-mobile" class="sidenav">
+      </ul>
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"></a>
+    </div>
+  </nav>
+
+
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <h1 class="header center orange-text">Classification Air Quality Index</h1>
+      <div class="row center">
+        <h5 class="header col s12 light">Please fill in all the fields
+        <br>
+        </h5>
+      </div>
+
+  <div class="row">
+    <form action='/predict' method="POST" class="col s12">
+      <div class="row">
+        <div class="input-field col s4">
+            <label for="first_name"><b>PM10</b></label>
+            <br>
+          <input   id="pm10" name='pm10'type="number" class="validate">
+        </div>
+        <div class="input-field col s4">
+
+          <label for="last_name"><b>SO2 </b></label>
+            <br>
+          <input id="so2"  name="so2" type="number" class="validate">
+
+        </div>
+
+        <div class="input-field col s4">
+            <label for="_name"><b>CO</b></label>
+            <br>
+          <input id="co" name="co" type="number" class="validate">
+
+        </div>
+
+        <div class="input-field col s6" >
+          <label for="_name"><b>O3</b></label>
+          <br>
+        <input id="o3" name="o3" type="number" class="validate">
+
+      </div>
+
+      <div class="input-field col s6" >
+        <label for="_name"><b>NO2</b></label>
+        <br>
+      <input id="no2" name="no2" type="number" class="validate">
+
+    </div>
+
+      </div>
+
+      <div class="row center">
+
+          <button type="submit" class="btn-large waves-effect waves-light orange">Result</button>
+      </div>
+    </form>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="section">
+
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="material-icons">air</i></h2>
+            <h5 class="center">PM10</h5>
+
+            <p class="light">PM10 (Particulate Matter 10) partikel padat atau cair dalam udara dengan diameter kurang dari 10 mikrometer. 
+              Partikel PM10 berasal dari berbagai sumber, termasuk debu, asap kendaraan bermotor, industri, dan aktivitas manusia lainnya. 
+              Partikel-partikel ini dapat masuk ke saluran pernapasan manusia dan menyebabkan gangguan kesehatan seperti iritasi pada saluran pernapasan, peningkatan risiko penyakit pernapasan, dan masalah kardiovaskular.</p>
+          </div>
+
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="material-icons">air</i></h2>
+            <h5 class="center">SO2</h5>
+
+            <p class="light">SO2 (Sulfur Dioxide) adalah gas yang dihasilkan oleh pembakaran bahan bakar fosil yang mengandung belerang, seperti batu bara dan minyak bumi. 
+              Gas ini juga dapat dilepaskan dari proses industri tertentu. Pemaparan terhadap SO2 dapat menyebabkan iritasi pada saluran pernapasan, peradangan paru-paru, dan mengganggu fungsi paru-paru. 
+              SO2 juga berkontribusi pada pembentukan hujan asam.</p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="material-icons">air</i></h2>
+            <h5 class="center">CO</h5>
+
+            <p class="light">CO (Carbon Monoxide) adalah gas tak berwarna dan tidak berbau yang dihasilkan dari pembakaran bahan bakar fosil dan material organik lainnya. 
+              CO biasanya muncul dari kendaraan bermotor, peralatan rumah tangga yang menggunakan bahan bakar, dan proses industri. Pemaparan terhadap CO dapat menyebabkan keracunan, karena gas ini mengikat dengan kuat pada hemoglobin dalam darah dan mengganggu transportasi oksigen ke jaringan tubuh.</p>
+          </div>
+        </div>
+
+        <div class="col s6">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="material-icons">air</i></h2>
+            <h5 class="center">O3</h5>
+
+            <p class="light">O3 (Ozone) adalah gas yang terbentuk oleh reaksi kimia antara sinar matahari, nitrogen dioksida (NO2), dan senyawa organik terhadap polutan lainnya. 
+              O3 dapat ditemukan di permukaan bumi sebagai polutan udara. Pemaparan jangka pendek terhadap O3 dapat menyebabkan iritasi pada saluran pernapasan, mengganggu fungsi paru-paru, dan menyebabkan masalah pernapasan. 
+              O3 juga merupakan komponen utama polusi udara di ketinggian dalam stratosfer yang melindungi bumi dari radiasi ultraviolet berbahaya.</p>
+          </div>
+        </div>
+
+        <div class="col s6">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="material-icons">air</i></h2>
+            <h5 class="center">NO2</h5>
+
+            <p class="light">NO2 (Nitrogen Dioxide) adalah gas beracun yang terbentuk dari reaksi kimia antara nitrogen dan oksigen saat pembakaran bahan bakar, khususnya di kendaraan bermotor dan pembangkit listrik. 
+              NO2 dapat menyebabkan iritasi pada saluran pernapasan, memperburuk gejala asma, meningkatkan risiko infeksi pernapasan, dan berkontribusi pada pembentukan polusi udara seperti ozon troposferik.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <br><br>
+  </div>
+  </div>
+
+  <footer class="page-footer orange">
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      Designed by <a class="footer-text" href="http://www.instagram.com/afidzulinn">afidzulinn</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="{{ url_for('static', filename='assets/js/init.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/js/materialize.js') }}"></script>
+
+
+  </body>
+</html>
+

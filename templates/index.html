@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>AirMinder</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+<!-- Favicons -->
+<link href="{{ url_for('static', filename='assets/img/img/airminder.png') }}" rel="icon">
+<link href="{{ url_for('static', filename='assets/img/img/airminder.png') }}" rel="apple-touch-icon">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
+
+<!-- Vendor CSS Files -->
+<link href="{{ url_for('static', filename='assets/vendor/aos/aos.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+
+<!-- Template Main CSS File -->
+<link href="{{ url_for('static', filename='assets/css/style.css') }}" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center header-transparent">
+    <div class="container d-flex justify-content-between align-items-center">
+
+      <div id="logo">
+        <a href=""><img src="static/assets/img/airminder-white.png" alt=""></a>
+        
+      </div>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+          <li><a class="nav-link scrollto" href="#about">About</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('predict') }}">Prediction</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero">
+
+    <div class="hero-text" data-aos="zoom-out">
+      <h2>Welcome to Air Pollution Monitoring System</h2>
+      <p>ISPU (Indeks Standar Pencemaran Udara) yang menggambarkan tingkat pencemaran udara secara umum berdasarkan pengukuran parameter polutan seperti PM10, SO2, NO2, CO, dan O3. Proses pemantauan kualitas udara secara langsung dan aktual, yang memberikan informasi terbaru mengenai tingkat polusi udara. 
+        Machine Learning Model yang menggunakan algoritma dan teknik machine learning untuk mengolah data dan mempelajari pola serta membuat prediksi mengenai tingkat polusi udara berdasarkan parameter-parameter yang diukur.</p>
+      <a href="{{ url_for('predict') }}" class="btn-get-started scrollto">Prediction</a>
+    </div>
+
+    
+  </section><!-- End Hero Section -->
+
+  <main id="main">
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="section-bg">
+      <div class="container-fluid" data-aos="fade-up">
+        <div class="section-header">
+          <h3 class="section-title">About Us</h3>
+          <span class="section-divider"></span>
+          <p class="section-description">
+              AirMinder adalah sebuah web app yang menggunakan model machine learning untuk memonitor tingkat polusi udara di DKI Jakarta. Model ini mengambil input dari parameter kualitas udara seperti PM10, SO2, NO2, CO, dan O3 untuk menghasilkan prediksi mengenai Indeks Standar Pencemaran Udara (ISPU) di lokasi tersebut. Sebagai pengingat atau penjaga terhadap kualitas udara, aplikasi ini membantu pengguna untuk tetap "mengingat" dan menjaga kesadaran tentang pentingnya udara yang bersih.
+
+              Web app AirMinder memberikan informasi mengenai kualitas udara di DKI Jakarta berdasarkan data yang dikumpulkan dari sensor-sensor. Dengan mengumpulkan data dari lokasi SPKU DKI Jakarta, web app ini dapat memberikan prediksi pemantauan polusi udara yang akurat dan terkini. Model machine learning yang digunakan AirMinder dilatih dengan dataset historis yang mencakup pengukuran polusi udara di berbagai waktu dan lokasi di DKI Jakarta. Dengan menggunakan teknik machine learning, model ini dapat mempelajari pola dan hubungan antara parameter-parameter kualitas udara yang terkait di wilayah tersebut.
+
+              Dengan AirMinder, pengguna dapat memantau dan memperoleh informasi yang penting mengenai tingkat polusi udara di DKI Jakarta, serta menjaga kesadaran akan kualitas udara yang bersih dan dampaknya terhadap kesehatan. Dengan memanfaatkan model machine learning, AirMinder dapat memprediksi tingkat polusi udara di masa depan berdasarkan data saat ini dan pola historis. Hal ini membantu pengguna web app untuk mengantisipasi dan mengambil langkah-langkah yang diperlukan untuk melindungi kesehatan mereka, seperti mengurangi aktivitas di luar ruangan atau menggunakan masker respirator jika tingkat polusi diperkirakan tinggi.
+          </p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 about-img" data-aos="fade-right" dat-aos-delay="100">
+            <img src="{{ url_for('static', filename='assets/img/img/pairplot.png') }}" alt="">
+          </div>
+
+          <div class="col-lg-6 content" data-aos="fade-left" dat-aos-delay="100">
+            <h2>Persebaran gas - gas polusi udara</h2>
+
+            <p>
+              Visualisasi yang digunakan untuk memeriksa hubungan antara dua variabel atau lebih dalam satu set data yang bersumber dari kota Jakarta. 
+              Untuk menggambarkan persebaran gas polusi udara PM10, SO2, CO, O3, dan NO2 dengan kategori BAIK, SEDANG, TIDAK SEHAT, dan SANGAT TIDAK SEHAT.
+              Persebaran titik data dalam kategori BAIK, SEDANG, TIDAK SEHAT, dan SANGAT TIDAK SEHAT dapat memberikan gambaran tentang bagaimana polusi udara PM10, SO2, CO, O3, dan NO2 berhubungan dalam masing-masing kategori. 
+              Misalnya, jika terdapat konsentrasi tinggi PM10 dan NO2 pada kategori TIDAK SEHAT dan SANGAT TIDAK SEHAT, dapat diasumsikan bahwa polusi udara PM10 dan NO2 memiliki kontribusi terhadap kualitas udara yang buruk.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======= Advanced Featuress Section ======= -->
+    <section id="advanced-features">
+
+      <div class="features-row section-bg" data-aos="fade-up">
+        <h2 class="container">
+          <div class="section-header">
+            <h3 class="section-title">Perubahan atau variasi dalam berbagai parameter atau kondisi gas selama periode tertentu.</h3>
+            <span class="section-divider"></span>
+          
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <img class="advanced-feature-img-right wow fadeInRight" src="static/assets/img/img/pm10.png" alt="">
+              <div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="features-row" data-aos="fade-up">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <img class="advanced-feature-img-left" src="static/assets/img/img/so2.png" alt="">
+              <div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="features-row section-bg" data-aos="fade-up">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <img class="advanced-feature-img-right wow fadeInRight" src="static/assets/img/img/co.png" alt="">
+              <div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="features-row" data-aos="fade-up">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <img class="advanced-feature-img-left" src="static/assets/img/img/o3.png" alt="">
+              <div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="features-row section-bg" data-aos="fade-up">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <img class="advanced-feature-img-right wow fadeInRight" src="static/assets/img/img/no2.png" alt="">
+              <div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- ======= Call To Action Section ======= -->
+    <section id="call-to-action">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-9 text-center text-lg-start">
+            <!-- <h3 class="cta-title">Call To Action</h3>
+            <p class="cta-text"> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> -->
+          </div>
+          <div class="col-lg-3 cta-btn-container text-center">
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <section id="more-features" class="section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <h3 class="section-title">Lainnya</h3>
+          <span class="section-divider"></span>
+        </div>
+
+        <div class="row gy-4">
+
+          <div class="col-lg-6">
+            <div class="box">
+              <div class="icon"><i class="bi bi-card-checklist"></i></div>
+              <h4 class="title"><a href="">Prediksi Polusi Udara</a></h4>
+              <p class="description">Dengan menggunakan machine learning model, web app ini dapat membuat prediksi tentang tingkat polusi udara di masa depan berdasarkan data historis dan pola yang teridentifikasi. Hal ini membantu pengguna web app untuk merencanakan aktivitas mereka dengan lebih baik dan mengambil langkah-langkah yang diperlukan untuk melindungi kesehatan mereka.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="box">
+              <div class="icon"><i class="bi bi-bar-chart-line"></i></div>
+              <h4 class="title"><a href="">Data Tren dan Analisi</a></h4>
+              <p class="description">Dengan mengumpulkan data polusi udara dari berbagai sumber di smart city, web app AirMinder dapat memberikan data tren dan analisis yang bermanfaat. Hal ini membantu pemerintah dan pengambil keputusan dalam memahami pola polusi udara, mengidentifikasi sumber-sumber polusi, dan merencanakan strategi pengurangan polusi yang efektif.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="box">
+              <div class="icon"><i class="bi bi-person"></i></div>
+              <h4 class="title"><a href="">Kesadaran Masyarakat</a></h4>
+              <p class="description">Dengan memberikan akses mudah dan transparan ke informasi polusi udara, web app ini dapat meningkatkan kesadaran masyarakat tentang pentingnya menjaga kualitas udara yang baik dan mengadopsi tindakan yang ramah lingkungan.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="box">
+              <div class="icon"><i class="bi bi-graph-up-arrow"></i></div>
+              <h4 class="title"><a href="">Peningkatan Akurasi Prediksi</a></h4>
+              <p class="description">Dengan menggunakan machine learning model, web app dapat terus mempelajari dan menyesuaikan diri dengan data baru yang dikumpulkan dari sensor dan pengukuran polusi udara. Ini dapat menghasilkan prediksi yang semakin akurat seiring waktu berkat kemampuan model untuk menangkap pola dan tren yang kompleks.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="box">
+              <div class="icon"><i class="bi bi-search"></i></div>
+              <h4 class="title"><a href="">Pengambilan Keputusan yang Lebih Cepat</a></h4>
+              <p class="description">Dengan adanya machine learning model dalam web app AirMinder, analisis data dapat dilakukan secara otomatis dan lebih cepat. Ini memungkinkan pengambilan keputusan yang lebih cepat oleh pihak terkait, seperti pemerintah atau organisasi kesehatan, dalam merespon perubahan kondisi polusi udara.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="box">
+              <div class="icon"><i class="bi bi-gear"></i></div>
+              <h4 class="title"><a href="">Pengembangan Model yang Lebih Lanjut</a></h4>
+              <p class="description">Implementasi machine learning model dalam web app AirMinder membuka peluang untuk pengembangan dan penelitian lebih lanjut dalam analisis dan pemodelan polusi udara. Data yang terkumpul dari web app ini dapat digunakan untuk mengidentifikasi faktor-faktor lain yang mempengaruhi kualitas udara dan untuk mengembangkan model yang lebih canggih dan akurat di masa depan.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section><!-- End More Features Section -->
+
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact">
+      <div class="container" data-aos="fade-up">
+        <div class="row">
+
+          <div class="col-lg-4 col-md-4">
+            <div class="contact-about">
+              <h3>AirMinder</h3>
+              <p> </p>
+              <div class="social-links">
+                <!-- <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="info">
+              <div>
+                <i class="bi bi-geo-alt"></i>
+                <p>Jl. Raya ITS, Keputih, Sukolilo<br>Surabaya, East Java 60111</p>
+              </div>
+
+              <div>
+                <i class="bi bi-envelope"></i>
+                <p>afidzulinn@gmail.com</p>
+              </div>
+
+              <div>
+                <i class="bi bi-phone"></i>
+                <p>+6283838395889</p>
+              </div>
+
+            </div>
+          </div>
+
+          
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 text-lg-start text-center">
+          <div class="copyright">
+            &copy; Copyright <strong>AirMinder</strong>. All Rights Reserved
+          </div>
+          <div class="credits">
+            Designed by <a href="https://">afidzulinn</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer><!-- End  Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-chevron-up"></i></a>
+
+  <script src="{{ url_for('static', filename='assets/vendor/aos/aos.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/vendor/php-email-form/validate.js') }}"></script>
+  
+  <!-- Template Main JS File -->
+  <script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+  
+
+</body>
+
+</html>
