@@ -7,7 +7,7 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - webapp-infusion-drop-vol:/app
+      - airminder-vol:/app
     restart: on-failure
     # deploy:
     #   resources:
@@ -28,5 +28,5 @@ services:
 #   br0:
 #     external: true
 volumes:
-  webapp-infusion-drop-vol:
-    name: webapp-infusion-drop-vol
+  airminder-vol:
+    name: airminder-vol
