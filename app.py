@@ -1,10 +1,10 @@
 from flask import Flask, render_template, request
 import joblib
 import numpy as np
+import pickle
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
 
-# loaded Model Machine Learning
 model = joblib.load('model/dt.sav')
 
 @app.route('/')
@@ -54,4 +54,4 @@ def predict():
     return render_template('predict.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", debug=True)
