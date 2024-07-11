@@ -1,34 +1,80 @@
-name: Deploy to DigitalOcean
+name: Docker
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build-and-deploy:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          lfs: true
+
+      - name: Setup ENV
+        run: |
+          echo "${{ vars.ENV_FILE }}" > .env
+
+      - name: Setup Docker buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log into registry ${{ env.REGISTRY }}
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Build and push Docker image
+        id: build-and-push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+      - name: Invoke portainer hook
+        uses: distributhor/workflow-webhook@v3
+        env:
+          webhook_url: ${{ vars.PORTAINER_WEBHOOK_URL }}
 
-    - name: Build and push Docker image
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        echo $GITHUB_TOKEN | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-        docker build -t ghcr.io/${{ github.repository_owner }}/airminder:${{ github.sha }} .
-        docker push ghcr.io/${{ github.repository_owner }}/airminder:${{ github.sha }}
+      - name: Install sshpass
+        run: sudo apt-get install sshpass
 
-    - name: Install sshpass
-      run: sudo apt-get install sshpass
-
-    - name: Deploy to DigitalOcean
-      env:
-        HOST: ${{ secrets.DIGITALOCEAN_HOST }}
-        USER: root
-        PASS: ${{ secrets.DIGITALOCEAN_ROOT_PASSWORD }}
-      run: |
-        sshpass -p $PASS ssh -o StrictHostKeyChecking=no $USER@$HOST << EOF
-          docker pull ghcr.io/${{ github.repository_owner }}/airminder:${{ github.sha }}
-          docker stop airminder || true
-          docker rm airminder || true
-          docker run -d --name airminder -p 9090:9090 ghcr.io/${{ github.repository_owner }}/airminder:${{ github.sha }}
+      - name: Deploy to DigitalOcean
+        env:
+          HOST: ${{ secrets.DIGITALOCEAN_HOST }}
+          USER: root
+          PASS: ${{ secrets.DIGITALOCEAN_ROOT_PASSWORD }}
+        run: |
+          sshpass -p $PASS ssh -o StrictHostKeyChecking=no $USER@$HOST << EOF
+            docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+            docker stop airminder || true
+            docker rm airminder || true
+            docker run -d --name airminder -p 9090:9090 ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
