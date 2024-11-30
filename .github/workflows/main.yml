@@ -54,14 +54,6 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Deploy to Cloud
-        env:
-          HOST: ${{ secrets.DIGITALOCEAN_HOST }}
-          USER: root
-          PASS: ${{ secrets.DIGITALOCEAN_ROOT_PASSWORD }}
-          IMAGE: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main
-        run: |
-
       - name: Invoke Portainer webhook
         uses: distributhor/workflow-webhook@v3
         env:
